@@ -1,5 +1,51 @@
-import 'package:tugas_week2_1123150135/tugas_week2_1123150135.dart' as tugas_week2_1123150135;
+import 'dart:io';
 
-void main(List<String> arguments) {
-  print('Hello world: ${tugas_week2_1123150135.calculate()}!');
+double _readNumber(String label) {
+  while (true) {
+    stdout.write('$label: ');
+    final input = stdin.readLineSync();
+    if (input == null) continue;
+    final value = double.tryParse(input.trim());
+    if (value != null) return value;
+    print('Input tidak valid. Masukkan angka.');
+  }
+}
+
+void main() {
+  while (true) {
+    print('\n=== Kalkulator Sederhana ===');
+    print('Gunakan salah satu operator berikut: +, -, *, /');
+    print('Ketik "exit" untuk keluar');
+    stdout.write('Pilih operator: ');
+    final pilih = stdin.readLineSync()?.trim();
+
+    if (pilih == null || pilih.toLowerCase() == 'exit') {
+      print('Bye!');
+      return;
+    }
+
+    final a = _readNumber('Masukkan angka pertama');
+    final b = _readNumber('Masukkan angka kedua');
+
+    switch (pilih) {
+      case '+':
+        print('Hasil: ${a + b}');
+        break;
+      case '-':
+        print('Hasil: ${a - b}');
+        break;
+      case '*':
+        print('Hasil: ${a * b}');
+        break;
+      case '/':
+        if (b == 0) {
+          print('Error: Tidak bisa dibagi nol');
+        } else {
+          print('Hasil: ${a / b}');
+        }
+        break;
+      default:
+        print('Operator tidak dikenal.');
+    }
+  }
 }
